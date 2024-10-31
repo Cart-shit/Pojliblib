@@ -6,8 +6,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import org.apache.commons.io.FileUtils;
-
 import pojlib.APIHandler;
 import pojlib.util.json.MinecraftInstances;
 import pojlib.util.*;
@@ -15,7 +13,6 @@ import pojlib.util.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -110,16 +107,16 @@ public class Installer {
 
         DownloadUtils.downloadFile(minecraftVersionInfo.assetIndex.url, new File(gameDir + "/assets/indexes/" + minecraftVersionInfo.assets + ".json"));
 
-        FileUtils.writeByteArrayToFile(new File(instance.gameDir + "/config/sodium-options.json"), FileUtil.loadFromAssetToByte(activity, "sodium-options.json"));
-        FileUtils.writeByteArrayToFile(new File(instance.gameDir + "/config/vivecraft-config.properties"), FileUtil.loadFromAssetToByte(activity, "vivecraft-config.properties"));
-        FileUtils.writeByteArrayToFile(new File(instance.gameDir + "/config/smoothboot.json"), FileUtil.loadFromAssetToByte(activity, "smoothboot.json"));
-        FileUtils.writeByteArrayToFile(new File(instance.gameDir + "/config/immediatelyfast.json"), FileUtil.loadFromAssetToByte(activity, "immediatelyfast.json"));
-        FileUtils.writeByteArrayToFile(new File(instance.gameDir + "/config/moreculling.toml"), FileUtil.loadFromAssetToByte(activity,"moreculling.toml"));
-        FileUtils.writeByteArrayToFile(new File(instance.gameDir + "/config/modernfix-mixins.properties"), FileUtil.loadFromAssetToByte(activity,"modernfix-mixins.properties"));
-        FileUtils.writeByteArrayToFile(new File(instance.gameDir + "/options.txt"), FileUtil.loadFromAssetToByte(activity, "options.txt"));
-        FileUtils.writeByteArrayToFile(new File(instance.gameDir + "/optionsviveprofiles.txt"), FileUtil.loadFromAssetToByte(activity, "optionsviveprofiles.txt"));
-        FileUtils.writeByteArrayToFile(new File(instance.gameDir + "/servers.dat"), FileUtil.loadFromAssetToByte(activity, "servers.dat"));
-        FileUtils.writeByteArrayToFile(new File(Constants.USER_HOME + "/hacks/ResConfHack.jar"), FileUtil.loadFromAssetToByte(activity, "hacks/ResConfHack.jar"));
+        org.apache.commons.io.FileUtils.writeByteArrayToFile(new File(instance.gameDir + "/config/sodium-options.json"), FileUtils.loadFromAssetToByte(activity, "sodium-options.json"));
+        org.apache.commons.io.FileUtils.writeByteArrayToFile(new File(instance.gameDir + "/config/vivecraft-config.properties"), FileUtils.loadFromAssetToByte(activity, "vivecraft-config.properties"));
+        org.apache.commons.io.FileUtils.writeByteArrayToFile(new File(instance.gameDir + "/config/smoothboot.json"), FileUtils.loadFromAssetToByte(activity, "smoothboot.json"));
+        org.apache.commons.io.FileUtils.writeByteArrayToFile(new File(instance.gameDir + "/config/immediatelyfast.json"), FileUtils.loadFromAssetToByte(activity, "immediatelyfast.json"));
+        org.apache.commons.io.FileUtils.writeByteArrayToFile(new File(instance.gameDir + "/config/moreculling.toml"), FileUtils.loadFromAssetToByte(activity,"moreculling.toml"));
+        org.apache.commons.io.FileUtils.writeByteArrayToFile(new File(instance.gameDir + "/config/modernfix-mixins.properties"), FileUtils.loadFromAssetToByte(activity,"modernfix-mixins.properties"));
+        org.apache.commons.io.FileUtils.writeByteArrayToFile(new File(instance.gameDir + "/options.txt"), FileUtils.loadFromAssetToByte(activity, "options.txt"));
+        org.apache.commons.io.FileUtils.writeByteArrayToFile(new File(instance.gameDir + "/optionsviveprofiles.txt"), FileUtils.loadFromAssetToByte(activity, "optionsviveprofiles.txt"));
+        org.apache.commons.io.FileUtils.writeByteArrayToFile(new File(instance.gameDir + "/servers.dat"), FileUtils.loadFromAssetToByte(activity, "servers.dat"));
+        org.apache.commons.io.FileUtils.writeByteArrayToFile(new File(Constants.USER_HOME + "/hacks/ResConfHack.jar"), FileUtils.loadFromAssetToByte(activity, "hacks/ResConfHack.jar"));
 
         return new File(gameDir + "/assets").getAbsolutePath();
     }

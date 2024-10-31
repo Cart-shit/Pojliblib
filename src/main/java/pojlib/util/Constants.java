@@ -14,6 +14,10 @@ public class Constants {
 
     public static String QUILT_META_URL = "https://meta.quiltmc.org/v3";
 
+    public static final String FORGE_META_URL = "https://questcraftplusplus.github.io/ForgeVersionAPI";
+
+    public static final String FORGE_INSTALLER_URL = "https://maven.minecraftforge.net/net/minecraftforge/forge/%1$s/forge-%1$s-installer.jar";
+
     public static String OAUTH_TOKEN_URL = "https://login.live.com/oauth20_token.srf";
 
     public static String XBL_AUTH_URL = "https://user.auth.xboxlive.com/user/authenticate";

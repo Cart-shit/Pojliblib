@@ -242,6 +242,7 @@ public class JREUtils {
                 "-Dglfwstub.windowHeight=" + 720,
                 "-Dglfwstub.initEgl=false",
                 "-Dlog4j2.formatMsgNoLookups=true", //Log4j RCE mitigation
+                "-Dfml.earlyprogresswindow=false", //Forge 1.14+ workaround
                 "-Dnet.minecraft.clientmodname=" + "QuestCraft",
                 "-Dext.net.resolvPath=" + Constants.USER_HOME + "/hacks/ResConfHack.jar",
                 "-Dsodium.checks.issue2561=false",

@@ -17,14 +17,15 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import pojlib.account.MinecraftAccount;
-import pojlib.account.Msa;
 import pojlib.install.FabricMeta;
+import pojlib.install.ForgeMeta;
 import pojlib.install.Installer;
 import pojlib.install.MinecraftMeta;
 import pojlib.install.QuiltMeta;
 import pojlib.install.VersionInfo;
 import pojlib.util.Constants;
-import pojlib.util.FileUtil;
+import pojlib.util.FileUtils;
+import pojlib.util.forge.ForgeUtils;
 import pojlib.util.json.MinecraftInstances;
 import pojlib.util.json.ProjectInfo;
 import pojlib.util.GsonUtils;
@@ -42,7 +43,7 @@ public class InstanceHandler {
 
         mrpackJson.getParentFile().mkdirs();
         File setupFile = new File(Constants.USER_HOME + "/instances/" + instanceName.toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "/setup");
-        FileUtil.unzipArchive(mrpackFilePath, setupFile.getPath());
+        FileUtils.unzipArchive(mrpackFilePath, setupFile.getPath());
 
         ModrinthIndexJson index = GsonUtils.jsonFileToObject(mrpackJson.getAbsolutePath(), ModrinthIndexJson.class);
         if(index == null) {
@@ -160,6 +161,8 @@ public class InstanceHandler {
                 modLoaderVersionInfo = QuiltMeta.getVersionInfo(quiltVersion, minecraftVersion);
                 break;
             }
+            case Forge:
+                ForgeMeta.getVersions();
         }
 
         VersionInfo minecraftVersionInfo = MinecraftMeta.getVersionInfo(minecraftVersion);

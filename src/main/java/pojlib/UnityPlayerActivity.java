@@ -7,19 +7,14 @@ import static org.lwjgl.glfw.CallbackBridge.sendMouseButton;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Activity;
 import android.app.ActivityGroup;
-import android.app.ActivityManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Process;
-import android.util.DisplayMetrics;
-import android.view.InputDevice;
 import android.util.DisplayMetrics;
 import android.view.InputDevice;
 import android.view.KeyEvent;
@@ -47,8 +42,7 @@ import pojlib.input.LwjglGlfwKeycode;
 import pojlib.input.gamepad.DefaultDataProvider;
 import pojlib.input.gamepad.Gamepad;
 import pojlib.util.Constants;
-import pojlib.util.FileUtil;
-import pojlib.util.Logger;
+import pojlib.util.FileUtils;
 
 public class UnityPlayerActivity extends ActivityGroup implements IUnityPlayerLifecycleEvents, GrabListener
 {
@@ -96,7 +90,7 @@ public class UnityPlayerActivity extends ActivityGroup implements IUnityPlayerLi
 
         File jre = new File(this.getFilesDir() + "/runtimes/JRE-22");
         if (!jre.exists()) {
-            FileUtil.unzipArchiveFromAsset(this, "JRE-22.zip", this.getFilesDir() + "/runtimes/JRE-22");
+            FileUtils.unzipArchiveFromAsset(this, "JRE-22.zip", this.getFilesDir() + "/runtimes/JRE-22");
             try {
                 Files.copy(Paths.get(this.getApplicationInfo().nativeLibraryDir + "/libawt_xawt.so"), Paths.get(this.getFilesDir() + "/runtimes/JRE-22/lib/libawt_xawt.so"));
             } catch (IOException e) {
@@ -128,14 +122,14 @@ public class UnityPlayerActivity extends ActivityGroup implements IUnityPlayerLi
 
     public static String installLWJGL(Activity activity) throws IOException {
         File lwjgl = new File(Constants.USER_HOME + "/lwjgl3/lwjgl-glfw-classes.jar");
-        byte[] lwjglAsset = FileUtil.loadFromAssetToByte(activity, "lwjgl/lwjgl-glfw-classes.jar");
+        byte[] lwjglAsset = FileUtils.loadFromAssetToByte(activity, "lwjgl/lwjgl-glfw-classes.jar");
 
         if (!lwjgl.exists()) {
             Objects.requireNonNull(lwjgl.getParentFile()).mkdirs();
-            FileUtil.write(lwjgl.getAbsolutePath(), lwjglAsset);
-        } else if (!FileUtil.matchingAssetFile(lwjgl, lwjglAsset)) {
+            FileUtils.write(lwjgl.getAbsolutePath(), lwjglAsset);
+        } else if (!FileUtils.matchingAssetFile(lwjgl, lwjglAsset)) {
             Objects.requireNonNull(lwjgl.getParentFile()).mkdirs();
-            FileUtil.write(lwjgl.getAbsolutePath(), lwjglAsset);
+            FileUtils.write(lwjgl.getAbsolutePath(), lwjglAsset);
         }
 
         return lwjgl.getAbsolutePath();

@@ -1,19 +1,14 @@
 package pojlib.account;
 
 import android.app.Activity;
-import android.os.FileUtils;
 import android.util.ArrayMap;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import pojlib.API;
 import pojlib.util.Constants;
-import pojlib.util.FileUtil;
+import pojlib.util.FileUtils;
 import pojlib.util.Logger;
 import pojlib.util.MSAException;
 
@@ -27,8 +22,6 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Map;
-
-import javax.xml.transform.ErrorListener;
 
 
 public class Msa {
@@ -110,7 +103,7 @@ public class Msa {
             wr.write(req.getBytes(StandardCharsets.UTF_8));
         }
         if(conn.getResponseCode() >= 200 && conn.getResponseCode() < 300) {
-            JSONObject jo = new JSONObject(FileUtil.read(conn.getInputStream()));
+            JSONObject jo = new JSONObject(FileUtils.read(conn.getInputStream()));
             conn.disconnect();
             return jo.getString("Token");
         }else{
@@ -142,13 +135,13 @@ public class Msa {
         }
 
         if(conn.getResponseCode() >= 200 && conn.getResponseCode() < 300) {
-            JSONObject jo = new JSONObject(FileUtil.read(conn.getInputStream()));
+            JSONObject jo = new JSONObject(FileUtils.read(conn.getInputStream()));
             String uhs = jo.getJSONObject("DisplayClaims").getJSONArray("xui").getJSONObject(0).getString("uhs");
             String token = jo.getString("Token");
             conn.disconnect();
             return new String[]{uhs, token};
         } else if(conn.getResponseCode() == 401) {
-            String responseContents = FileUtil.read(conn.getErrorStream());
+            String responseContents = FileUtils.read(conn.getErrorStream());
             JSONObject jo = new JSONObject(responseContents);
             long xerr = jo.optLong("XErr", -1);
             String locale_id = XSTS_ERRORS.get(xerr);
@@ -179,7 +172,7 @@ public class Msa {
         }
 
         if(conn.getResponseCode() >= 200 && conn.getResponseCode() < 300) {
-            JSONObject jo = new JSONObject(FileUtil.read(conn.getInputStream()));
+            JSONObject jo = new JSONObject(FileUtils.read(conn.getInputStream()));
             conn.disconnect();
             mcToken = jo.getString("access_token");
             mcExpiresOn = System.currentTimeMillis() + (jo.getInt("expires_in") * 1000L);
@@ -213,7 +206,7 @@ public class Msa {
         conn.connect();
 
         if(conn.getResponseCode() >= 200 && conn.getResponseCode() < 300) {
-            String s = FileUtil.read(conn.getInputStream());
+            String s = FileUtils.read(conn.getInputStream());
             conn.disconnect();
             Logger.getInstance().appendToLog("MicrosoftLogin | profile:" + s);
             JSONObject jsonObject = new JSONObject(s);

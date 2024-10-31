@@ -3,7 +3,6 @@ package pojlib.util.json;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,10 +10,8 @@ import java.util.List;
 import pojlib.account.MinecraftAccount;
 import pojlib.API;
 import pojlib.InstanceHandler;
-import pojlib.account.Msa;
 import pojlib.util.Constants;
 import pojlib.util.DownloadUtils;
-import pojlib.util.FileUtil;
 import pojlib.util.GsonUtils;
 import pojlib.util.Logger;
 

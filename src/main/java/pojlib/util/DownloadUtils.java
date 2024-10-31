@@ -76,6 +76,29 @@ public class DownloadUtils {
             throw th3;
         }
     }
+
+    public static void downloadFileMonitored(String urlInput, File outputFile, @Nullable byte[] buffer, DownloadUtils.DownloaderFeedback monitor) throws IOException {
+        FileUtils.ensureParentDirectory(outputFile);
+
+        HttpURLConnection conn = (HttpURLConnection) new URL(urlInput).openConnection();
+        InputStream readStr = conn.getInputStream();
+        try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+            int current;
+            int overall = 0;
+            int length = conn.getContentLength();
+
+            if (buffer == null) buffer = new byte[65535];
+
+            while ((current = readStr.read(buffer)) != -1) {
+                overall += current;
+                fos.write(buffer, 0, current);
+                monitor.updateProgress(overall, length);
+            }
+            conn.disconnect();
+        }
+
+    }
+
     public static boolean compareSHA1(File f, @Nullable String sourceSHA) {
         try {
             String sha1_dst;

@@ -3,8 +3,6 @@ package pojlib.util;
 import android.app.Activity;
 import android.content.Context;
 
-import org.apache.commons.io.FileUtils;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -12,13 +10,8 @@ import java.util.Enumeration;
 import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
 
-public class FileUtil {
-
-    public static String DIR_GAME_NEW;
-    public static String DIR_HOME_VERSION;
-
+public class FileUtils {
 
     public static byte[] loadFromAssetToByte(Context ctx, String inFile) {
         byte[] buffer = null;
@@ -101,7 +94,7 @@ public class FileUtil {
     public static void unzipArchiveFromAsset(Activity activity, String archiveName, String extractPath) {
         try {
             File zip = new File(extractPath, archiveName);
-            FileUtils.writeByteArrayToFile(zip, FileUtil.loadFromAssetToByte(activity, archiveName));
+            org.apache.commons.io.FileUtils.writeByteArrayToFile(zip, FileUtils.loadFromAssetToByte(activity, archiveName));
             try(ZipFile zipFile = new ZipFile(zip)) {
                 byte[] buf = new byte[1024];
                 Enumeration<? extends ZipEntry> entries = zipFile.entries();
